@@ -26,7 +26,6 @@ with warnings.catch_warnings():
     from pyasn1.codec.ber import decoder
 
 from . import utils
-from robot.api import logger
 
 
 def _generic_trap_filter(domain, sock, pdu, **kwargs):
@@ -63,7 +62,6 @@ def _trap_receiver(trap_filter, host, port, timeout):
             raise RuntimeError('Only SNMP v2c traps are supported.')
 
         req, msg = decoder.decode(msg, asn1Spec=v2c.Message())
-        logger.info(f"Trap Received: {req.prettyPrint()}")
         pdu = v2c.apiMessage.getPDU(req)
 
         # ignore any non trap PDUs
